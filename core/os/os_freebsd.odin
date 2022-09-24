@@ -654,7 +654,9 @@ get_current_directory :: proc() -> string {
 set_current_directory :: proc(path: string) -> (err: Errno) {
 	cstr := strings.clone_to_cstring(path, context.temp_allocator)
 	res := _unix_chdir(cstr)
-	if res == -1 do return Errno(get_last_error())
+	if res == -1 {
+		return Errno(get_last_error())
+	}
 	return ERROR_NONE
 }
 
