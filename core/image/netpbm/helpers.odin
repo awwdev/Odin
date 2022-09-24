@@ -4,13 +4,17 @@ import "core:bytes"
 import "core:image"
 
 destroy :: proc(img: ^image.Image) -> bool {
-	if img == nil do return false
+	if img == nil {
+		return false
+	}
 
 	defer free(img)
 	bytes.buffer_destroy(&img.pixels)
 
 	info, ok := img.metadata.(^image.Netpbm_Info)
-	if !ok do return false
+	if !ok {	
+		return false
+	}
 
 	header_destroy(&info.header)
 	free(info)
