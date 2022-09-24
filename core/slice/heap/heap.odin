@@ -210,7 +210,9 @@ sift_up :: proc(data: []$T, less: proc(a, b: T) -> bool) {
 	// amoritize length lookup
 	length := len(data)
 
-	if length <= 1 do return
+	if length <= 1 {
+		return
+	}
 
 	last := length
 	length = (length - 2) / 2
